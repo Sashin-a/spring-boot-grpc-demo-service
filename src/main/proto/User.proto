@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package com.epam.proto.stubs;
+
+option java_multiple_files=true;
+option java_package = "com.epam.proto.stubs";
+
+
+service UserService
+{
+  rpc getUserDetails(UserRequest) returns (UserResponse);
+}
+
+message UserRequest{
+  int32 id=1;
+  string username=2;
+}
+
+message UserResponse{
+  string username=1;
+  int32  id=2;
+  string name=3;
+  Gender gender=4;
+  repeated Location location=5;
+}
+
+enum Gender
+{
+  MALE=0;
+  FEMALE=1;
+  OTHER=2;
+}
+
+message Location
+{
+  int32 locationId=1;
+  string locationName=2;
+  string pincode=3;
+  string phoneNum =4;
+}
