@@ -6,9 +6,25 @@ option java_multiple_files=true;
 option java_package = "com.epam.proto.stubs";
 
 
-service UserService
+service GrpcUserServiceImpl
 {
   rpc getUserDetails(UserRequest) returns (UserResponse);
+  rpc saveUserDetails(UserRequestForSave) returns (UserResponse);
+
+//  client stream
+  rpc getUserDetailsClientStream (stream UserRequest) returns (UserResponse);
+
+  //  server stream
+  rpc getUserDetailsServerStream ( UserRequest) returns (stream UserResponse);
+
+  //  bidirectional stream
+  rpc getUserDetailsBiStream (stream UserRequest) returns (stream UserResponse);
+}
+
+message UserRequestForSave{
+  string username=1;
+  string name=2;
+  Gender gender=3;
 }
 
 message UserRequest{
@@ -21,7 +37,7 @@ message UserResponse{
   int32  id=2;
   string name=3;
   Gender gender=4;
-  repeated Location location=5;
+
 }
 
 enum Gender
@@ -30,11 +46,11 @@ enum Gender
   FEMALE=1;
   OTHER=2;
 }
-
-message Location
-{
-  int32 locationId=1;
-  string locationName=2;
-  string pincode=3;
-  string phoneNum =4;
-}
+//
+//message Location
+//{
+//  int32 locationId=1;
+//  string locationName=2;
+//  string pincode=3;
+//  string phoneNum =4;
+//}
